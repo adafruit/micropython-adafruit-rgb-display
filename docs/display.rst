@@ -31,7 +31,7 @@ This is the interface that all the display classes share.
 
         Get or set the value of a pixel at the given position.
 
-    .. method:: fill_rectangle(x, y, w, h, color)
+    .. method:: fill_rectangle(x, y, width, height, color)
 
         Draw a rectangle at specified position with specified width and
         height, and fill it with the specified color.
