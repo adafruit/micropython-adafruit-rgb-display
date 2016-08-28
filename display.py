@@ -68,12 +68,12 @@ class Display:
             return
         self._block(x, y, x, y, self._encode_pixel(color))
 
-    def fill_rectangle(self, x, y, w, h, color):
+    def fill_rectangle(self, x, y, width, height, color):
         """Draw a filled rectangle."""
         x = min(self.width - 1, max(0, x))
         y = min(self.height - 1, max(0, y))
-        w = min(self.width - x, max(1, w))
-        h = min(self.height - y, max(1, h))
+        w = min(self.width - x, max(1, width))
+        h = min(self.height - y, max(1, height))
         self._block(x, y, x + w - 1, y + h - 1, b'')
         chunks, rest = divmod(w * h, 512)
         pixel = self._encode_pixel(color)
