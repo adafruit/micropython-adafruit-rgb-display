@@ -22,4 +22,5 @@ This library lets you use a number of popular displays with MicroPython.""",
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
     ],
+    url="https://bitbucket.org/thesheep/micropython-display",
 )
