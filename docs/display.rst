@@ -44,6 +44,6 @@ This is the interface that all the display classes share.
 
         Draw a horizontal line.
 
-    .. method:: vline(x, y, width, color)
+    .. method:: vline(x, y, height, color)
 
         Draw a vertical line.
