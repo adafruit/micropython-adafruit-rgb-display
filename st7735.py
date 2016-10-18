@@ -1,4 +1,4 @@
-from display import DisplaySPI, color565
+from rgb import DisplaySPI, color565
 
 
 _NOP=const(0x00)

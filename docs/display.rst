@@ -1,7 +1,7 @@
 Display Module
 **************
 
-.. module:: display
+.. module:: rgb
 
 Utilities
 =========

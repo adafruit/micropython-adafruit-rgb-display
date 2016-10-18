@@ -1,4 +1,4 @@
-from display import DisplaySPI, color565
+from rgb import DisplaySPI, color565
 
 _SWRESET = const(0x01)
 _DISPON = const(0x29)

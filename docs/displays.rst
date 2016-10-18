@@ -1,7 +1,7 @@
 List of Supported Displays
 **************************
 
-.. module:: display
+.. module:: rgb
 
 All of those displays support the methods of the :class:`Display` class.
 

@@ -47,7 +47,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'µDisplay'
+project = u'MicroPython RGB'
 copyright = u'2016, Radomir Dopieralski'
 
 # The version info for the project you're documenting, acts as replacement for
