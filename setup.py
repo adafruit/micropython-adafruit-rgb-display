@@ -2,7 +2,7 @@ from distutils.core import setup
 
 
 setup(
-    name='rgb',
+    name='adafruit-rgb-display',
     py_modules=[
         'rgb',
         'hx8353',
