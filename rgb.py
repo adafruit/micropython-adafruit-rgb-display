@@ -1,4 +1,4 @@
-import time
+import utime
 import ustruct
 
 
@@ -111,9 +111,9 @@ class DisplaySPI(Display):
 
     def reset(self):
         self.rst.low()
-        time.sleep_ms(50)
+        utime.sleep_ms(50)
         self.rst.high()
-        time.sleep_ms(50)
+        utime.sleep_ms(50)
 
     def _write(self, command=None, data=None):
         if command is not None:
