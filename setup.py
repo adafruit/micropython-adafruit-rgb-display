@@ -12,7 +12,7 @@ setup(
         'ssd1351',
         'st7735',
     ],
-    version="1.0.0",
+    version="1.0.1",
     description="Drivers for RGB displays for MicroPython.",
     long_description="""\
 This library lets you use a number of popular RGB displays with MicroPython.""",
