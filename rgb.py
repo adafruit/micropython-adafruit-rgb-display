@@ -1,5 +1,6 @@
 import utime
 import ustruct
+import framebuf
 
 
 def color565(r, g, b):
@@ -94,6 +95,28 @@ class Display:
     def vline(self, x, y, height, color):
         """Draw a vertical line."""
         self.fill_rectangle(x, y, 1, height, color)
+
+    def blit_buffer(self, buffer, x, y, width, height):
+        x = min(self.width - 1, max(0, x))
+        y = min(self.height - 1, max(0, y))
+        w = min(self.width - x, max(1, width))
+        h = min(self.height - y, max(1, height))
+        self._block(x, y, x + w - 1, y + w - 1, buffer)
+
+    def text(self, text, x=0, y=0, color=0xffff, background=0x0000):
+        x = min(self.width - 1, max(0, x))
+        y = min(self.height - 1, max(0, y))
+        w = self.width - x
+        h = min(self.height - y, 8)
+        buffer = bytearray(self.width * h * 2)
+        fb = framebuf.FrameBuffer(buffer, w, h, framebuf.RGB565)
+        for line in text.split('\n'):
+            fb.fill(background)
+            fb.text(line, 0, 0, color)
+            self.blit_buffer(buffer, x, y, w, h)
+            y += 8;
+            if y >= self.height:
+                break
 
 
 class DisplaySPI(Display):
