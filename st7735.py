@@ -54,8 +54,7 @@ class ST7735(DisplaySPI):
 
     >>> from machine import Pin, SPI
     >>> import st7735
-    >>> spi = SPI(mosi=Pin(13), sck=Pin(14))
-    >>> display = st7735.ST7735(spi, dc=Pin(12), cs=Pin(15), rst=Pin(16))
+    >>> display = st7735.ST7735(SPI(1), dc=Pin(12), cs=Pin(15), rst=Pin(16))
     >>> display.fill(0x7521)
     >>> display.pixel(64, 64, 0)
 
@@ -67,25 +66,32 @@ class ST7735(DisplaySPI):
     _INIT = (
         (_SWRESET, None),
         (_SLPOUT, None),
-        (_COLMOD, b'\x05'), # 16bit color
-        # fastest refresh, 6 lines front porch, 3 line back porch
-        (_FRMCTR1, b'\x00\x06\x03'),
+
         (_MADCTL, b'\x08'), # bottom to top refresh
+        (_COLMOD, b'\x05'), # 16bit color
+        (_INVCTR, b'0x00'), # line inversion
+
         # 1 clk cycle nonoverlap, 2 cycle gate rise, 3 sycle osc equalie,
         # fix on VTL
         (_DISSET5, b'\x15\x02'),
-        (_INVCTR, b'0x00'), # line inversion
+        # fastest refresh, 6 lines front porch, 3 line back porch
+        (_FRMCTR1, b'\x00\x06\x03'),
+
         (_PWCTR1, b'\x02\x70'), # GVDD = 4.7V, 1.0uA
         (_PWCTR2, b'\x05'), # VGH=14.7V, VGL=-7.35V
         (_PWCTR3, b'\x01\x02'), # Opamp current small, Boost frequency
-        (_VMCTR1, b'\x3c\x38'), # VCOMH = 4V, VOML = -1.1V
         (_PWCTR6, b'\x11\x15'),
+
+        (_VMCTR1, b'\x3c\x38'), # VCOMH = 4V, VOML = -1.1V
+
         (_GMCTRP1, b'\x09\x16\x09\x20\x21\x1b\x13\x19'
                    b'\x17\x15\x1e\x2b\x04\x05\x02\x0e'), # Gamma
         (_GMCTRN1, b'\x08\x14\x08\x1e\x22\x1d\x18\x1e'
                    b'\x18\x1a\x24\x2b\x06\x06\x02\x0f'),
+
         (_CASET, b'\x00\x02\x00\x81'), # XSTART = 2, XEND = 129
-        (_RASET, b'\x00\x02\x00\x81'), # XSTART = 2, XEND = 129
+        (_RASET, b'\x00\x02\x00\x81'), # YSTART = 2, YEND = 129
+
         (_NORON, None),
         (_DISPON, None),
     )
@@ -94,3 +100,38 @@ class ST7735(DisplaySPI):
 
     def __init__(self, spi, dc, cs, rst=None, width=128, height=128):
         super().__init__(spi, dc, cs, rst, width, height)
+
+
+class ST7735R(ST7735):
+    _INIT = (
+        (_SWRESET, None),
+        (_SLPOUT, None),
+
+        (_MADCTL, b'\xc8'),
+        (_COLMOD, b'\x05'), # 16bit color
+        (_INVCTR, b'0x07'),
+
+        (_FRMCTR1, b'\x01\x2c\x2d'),
+        (_FRMCTR2, b'\x01\x2c\x2d'),
+        (_FRMCTR3, b'\x01\x2c\x2d\x01\x2c\x2d'),
+
+        (_PWCTR1, b'\x02\x02\x84'),
+        (_PWCTR2, b'\xc5'),
+        (_PWCTR3, b'\x0a\x00'),
+        (_PWCTR4, b'\x8a\x2a'),
+        (_PWCTR5, b'\x8a\xee'),
+
+        (_VMCTR1, b'\x0e'),
+        (_INVOFF, None),
+
+        (_GMCTRP1, b'\x02\x1c\x07\x12\x37\x32\x29\x2d'
+                   b'\x29\x25\x2B\x39\x00\x01\x03\x10'), # Gamma
+        (_GMCTRN1, b'\x03\x1d\x07\x06\x2E\x2C\x29\x2D'
+                   b'\x2E\x2E\x37\x3F\x00\x00\x02\x10'),
+
+        (_CASET, b'\x00\x00\x00\x7f'), # XSTART = 0, XEND = 127
+        (_RASET, b'\x00\x00\x00\x7f'), # YSTART = 0, YEND = 127
+
+        (_NORON, None),
+        (_DISPON, None),
+    )
