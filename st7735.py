@@ -110,7 +110,7 @@ class ST7735R(ST7735):
 
         (_MADCTL, b'\xc8'),
         (_COLMOD, b'\x05'), # 16bit color
-        (_INVCTR, b'0x07'),
+        (_INVCTR, b'\x07'),
 
         (_FRMCTR1, b'\x01\x2c\x2d'),
         (_FRMCTR2, b'\x01\x2c\x2d'),
