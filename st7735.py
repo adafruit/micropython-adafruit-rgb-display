@@ -1,4 +1,5 @@
 from rgb import DisplaySPI, color565
+import ustruct
 
 
 _NOP=const(0x00)
@@ -128,10 +129,20 @@ class ST7735R(ST7735):
                    b'\x29\x25\x2B\x39\x00\x01\x03\x10'), # Gamma
         (_GMCTRN1, b'\x03\x1d\x07\x06\x2E\x2C\x29\x2D'
                    b'\x2E\x2E\x37\x3F\x00\x00\x02\x10'),
-
-        (_CASET, b'\x00\x00\x00\x7f'), # XSTART = 0, XEND = 127
-        (_RASET, b'\x00\x00\x00\x7f'), # YSTART = 0, YEND = 127
-
-        (_NORON, None),
-        (_DISPON, None),
     )
+
+    def __init__(self, spi, dc, cs, rst=None, width=128, height=160):
+        super().__init__(spi, dc, cs, rst, width, height)
+
+    def init(self):
+        super().init()
+        cols = ustruct.pack('>HH', 0, self.width - 1)
+        rows = ustruct.pack('>HH', 0, self.height - 1)
+        for command, data in (
+            (_CASET, cols),
+            (_RASET, rows),
+
+            (_NORON, None),
+            (_DISPON, None),
+        ):
+            self._write(command, data)
