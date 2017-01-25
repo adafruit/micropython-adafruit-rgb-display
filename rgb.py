@@ -9,14 +9,35 @@ def color565(r, g, b):
 
 class DummyPin:
     """A fake gpio pin for when you want to skip pins."""
-    def init(self, *args, **kwargs):
-        pass
 
-    def low(self):
-        pass
+    OUT = 0
+    IN = 0
+    PULL_UP = 0
+    PULL_DOWN = 0
+    OPEN_DRAIN = 0
+    ALT = 0
+    ALT_OPEN_DRAIN = 0
+    LOW_POWER = 0
+    MED_POWER = 0
+    HIGH_PWER = 0
+    IRQ_FALLING = 0
+    IRQ_RISING = 0
+    IRQ_LOW_LEVEL = 0
+    IRQ_HIGH_LEVEL = 0
 
-    def high(self):
-        pass
+    def __call__(self, *args, **kwargs):
+        return False
+
+    init = __call__
+    value = __call__
+    out_value = __call__
+    toggle = __call__
+    high = __call__
+    low = __call__
+    mode = __call__
+    pull = __call__
+    drive = __call__
+    irq = __call__
 
 
 class Display:
