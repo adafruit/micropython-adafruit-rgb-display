@@ -56,6 +56,7 @@ class ST7735(DisplaySPI):
     >>> from machine import Pin, SPI
     >>> import st7735
     >>> display = st7735.ST7735(SPI(1), dc=Pin(12), cs=Pin(15), rst=Pin(16))
+    >>> display = st7735.ST7735R(SPI(1, baudrate=40000000), dc=Pin(12), cs=Pin(15), rst=Pin(16))
     >>> display.fill(0x7521)
     >>> display.pixel(64, 64, 0)
 

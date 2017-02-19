@@ -12,7 +12,7 @@ _MADCTL = const(0x36)
 
 class S6D02A1(DisplaySPI):
     """
-    A simple driver for the ST7735-based displays.
+    A simple driver for the S6D02A1-based displays.
 
     >>> from machine import Pin, SPI
     >>> import s6d02a1

@@ -12,7 +12,7 @@ Utilities
 
 .. class:: DummyPin()
 
-    Can be used in place of a ``Pin()`` when you don't want to skip it.
+    Can be used in place of a ``Pin()`` when you want to skip it.
 
 
 Display Class

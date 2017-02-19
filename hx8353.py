@@ -15,7 +15,7 @@ _COLMOD = const(0x3a)
 
 class HX8353(DisplaySPI):
     """
-    A simple driver for the ST7735-based displays.
+    A simple driver for the HX8383-based displays.
 
     >>> from machine import Pin, SPI
     >>> import hx8353
