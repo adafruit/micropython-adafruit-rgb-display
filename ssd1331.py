@@ -36,11 +36,11 @@ _LOCK = const(0xfd)
 class SSD1331(DisplaySPI):
     """
 >>>
-from machine import Pin, HSPI
+from machine import Pin, SPI
 import ssd1331
 #spi = SPI(mosi=Pin(13), sck=Pin(14), polarity=1, phase=1)
-spi = HSPI(polarity=1, phase=1)
-display = ssd1331.SSD1331(spi, dc=Pin(2), cs=Pin(15), rst=Pin(16))
+spi = SPI(1, polarity=1, phase=1)
+display = ssd1331.SSD1331(spi, dc=Pin(12), cs=Pin(15), rst=Pin(16))
 display.fill(0x7521)
 display.pixel(32, 32, 0)
     """
@@ -79,3 +79,15 @@ display.pixel(32, 32, 0)
 
     def __init__(self, spi, dc, cs, rst=None, width=96, height=64):
         super().__init__(spi, dc, cs, rst, width, height)
+
+    def _write(self, command=None, data=None):
+        if command is None:
+            self.dc.high()
+        else:
+            self.dc.low()
+        self.cs.low()
+        if command is not None:
+            self.spi.write(bytearray([command]))
+        if data is not None:
+            self.spi.write(data)
+        self.cs.high()
