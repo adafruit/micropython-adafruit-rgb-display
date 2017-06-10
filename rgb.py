@@ -1,4 +1,4 @@
-import utime
+import time
 import ustruct
 
 
@@ -132,38 +132,38 @@ class DisplaySPI(Display):
         self.cs = cs
         self.dc = dc
         self.rst = rst
-        self.cs.init(self.cs.OUT, value=1)
-        self.dc.init(self.dc.OUT, value=0)
+        self.cs.switch_to_output(value=True)
+        self.dc.switch_to_output(value=False)
         if self.rst:
-            self.rst.init(self.rst.OUT, value=0)
+            self.rst.switch_to_output(value=False)
             self.reset()
         super().__init__(width, height)
 
     def reset(self):
-        self.rst.low()
-        utime.sleep_ms(50)
-        self.rst.high()
-        utime.sleep_ms(50)
+        self.rst.value = False
+        time.sleep(.05)
+        self.rst.value = True
+        time.sleep(.05)
 
     def _write(self, command=None, data=None):
         if command is not None:
-            self.dc.low()
-            self.cs.low()
+            self.dc.value = False
+            self.cs.value = False
             self.spi.write(bytearray([command]))
-            self.cs.high()
+            self.cs.value = True
         if data is not None:
-            self.dc.high()
-            self.cs.low()
+            self.dc.value = True
+            self.cs.value = False
             self.spi.write(data)
-            self.cs.high()
+            self.cs.value = True
 
     def _read(self, command=None, count=0):
-        self.dc.low()
-        self.cs.low()
+        self.dc.value = False
+        self.cs.value = False
         if command is not None:
             self.spi.write(bytearray([command]))
         if count:
             data = self.spi.read(count)
-        self.cs.high()
+        self.cs.value = True
         return data
 
