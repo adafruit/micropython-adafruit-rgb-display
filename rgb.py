@@ -33,6 +33,8 @@ class DummyPin:
     toggle = __call__
     high = __call__
     low = __call__
+    on = __call__
+    off = __call__
     mode = __call__
     pull = __call__
     drive = __call__
@@ -127,43 +129,45 @@ class Display:
 
 
 class DisplaySPI(Display):
-    def __init__(self, spi, dc, cs, rst=None, width=1, height=1):
+    def __init__(self, spi, dc, cs=None, rst=None, width=1, height=1):
         self.spi = spi
         self.cs = cs
         self.dc = dc
         self.rst = rst
+        if self.rst is None:
+            self.rst = DummyPin()
+        if self.cs is None:
+            self.cs = DummyPin()
         self.cs.init(self.cs.OUT, value=1)
         self.dc.init(self.dc.OUT, value=0)
-        if self.rst:
-            self.rst.init(self.rst.OUT, value=0)
-            self.reset()
+        self.rst.init(self.rst.OUT, value=0)
         super().__init__(width, height)
 
     def reset(self):
-        self.rst.low()
+        self.rst(0)
         utime.sleep_ms(50)
-        self.rst.high()
+        self.rst(1)
         utime.sleep_ms(50)
 
     def _write(self, command=None, data=None):
         if command is not None:
-            self.dc.low()
-            self.cs.low()
+            self.dc(0)
+            self.cs(0)
             self.spi.write(bytearray([command]))
-            self.cs.high()
+            self.cs(1)
         if data is not None:
-            self.dc.high()
-            self.cs.low()
+            self.dc(1)
+            self.cs(0)
             self.spi.write(data)
-            self.cs.high()
+            self.cs(1)
 
     def _read(self, command=None, count=0):
-        self.dc.low()
-        self.cs.low()
+        self.dc(0)
+        self.cs(0)
         if command is not None:
             self.spi.write(bytearray([command]))
         if count:
             data = self.spi.read(count)
-        self.cs.high()
+        self.cs(1)
         return data
 

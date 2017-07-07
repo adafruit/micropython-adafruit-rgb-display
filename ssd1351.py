@@ -39,7 +39,7 @@ class SSD1351(DisplaySPI):
 >>>
 from machine import Pin, SPI
 import ssd1351
-spi = SPI(mosi=Pin(13), sck=Pin(14))
+spi = SPI(1, baudrate=20000000)
 display = ssd1351.SSD1351(spi, dc=Pin(12), cs=Pin(15), rst=Pin(16))
 display.fill(0x7521)
 display.pixel(32, 32, 0)
@@ -78,4 +78,3 @@ display.pixel(32, 32, 0)
 
     def __init__(self, spi, dc, cs, rst=None, width=128, height=128):
         super().__init__(spi, dc, cs, rst, width, height)
-

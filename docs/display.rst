@@ -47,3 +47,9 @@ This is the interface that all the display classes share.
     .. method:: vline(x, y, height, color)
 
         Draw a vertical line.
+
+    ..method:: blit_buffer(buffer, x, y, width, height)
+
+        Copy the pixels from the buffer onto the display, starting at position
+        ``(x, y)`` and assuming the copied area has width ``width`` and height
+        ``height``. The area has to fit entirely inside the display
