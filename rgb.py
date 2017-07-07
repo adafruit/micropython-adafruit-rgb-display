@@ -140,7 +140,8 @@ class DisplaySPI(Display):
             self.cs = DummyPin()
         self.cs.init(self.cs.OUT, value=1)
         self.dc.init(self.dc.OUT, value=0)
-        self.rst.init(self.rst.OUT, value=0)
+        self.rst.init(self.rst.OUT, value=1)
+        self.reset()
         super().__init__(width, height)
 
     def reset(self):
