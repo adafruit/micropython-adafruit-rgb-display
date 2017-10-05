@@ -57,21 +57,21 @@ display.pixel(32, 32, 0)
         (_NORMALDISPLAY, b''),
 #        (_FILL, b'\x01'),
 
-#	(_PHASEPERIOD, b'\x31'),
-#	(_SETMULTIPLEX, b'\x3f'),
-#	(_SETMASTER, b'\x8e'),
-#	(_POWERMODE,b'\x0b'),
-#	(_PRECHARGE, b'\x31'), #;//0x1F - 0x31
-#	(_CLOCKDIV, b'\xf0'),
-#	(_VCOMH, b'\x3e'), #;//0x3E - 0x3F
-#	(_MASTERCURRENT, b'\x06'), # ;//0x06 - 0x0F
-#	(_PRECHARGEA, b'\x64'),
-#	(_PRECHARGEB, b'\x78'),
-#	(_PRECHARGEC, b'\x64'),
-#	(_PRECHARGELEVEL, b'\x3a'), # 0x3A - 0x00
-#	(_CONTRASTA, b'\x91'), #//0xEF - 0x91
-#	(_CONTRASTB, b'\x50'), #;//0x11 - 0x50
-#	(_CONTRASTC, b'\x7d'), #;//0x48 - 0x7D
+	(_PHASEPERIOD, b'\x31'),
+	(_SETMULTIPLEX, b'\x3f'),
+	(_SETMASTER, b'\x8e'),
+	(_POWERMODE,b'\x0b'),
+	(_PRECHARGE, b'\x31'), #;//0x1F - 0x31
+	(_CLOCKDIV, b'\xf0'),
+	(_VCOMH, b'\x3e'), #;//0x3E - 0x3F
+	(_MASTERCURRENT, b'\x0c'), # ;//0x06 - 0x0F
+	(_PRECHARGEA, b'\x64'),
+	(_PRECHARGEB, b'\x78'),
+	(_PRECHARGEC, b'\x64'),
+	(_PRECHARGELEVEL, b'\x3a'), # 0x3A - 0x00
+	(_CONTRASTA, b'\x91'), #//0xEF - 0x91
+	(_CONTRASTB, b'\x50'), #;//0x11 - 0x50
+	(_CONTRASTC, b'\x7d'), #;//0x48 - 0x7D
         (_DISPLAYON, b''),
     )
     _ENCODE_PIXEL = ">H"
