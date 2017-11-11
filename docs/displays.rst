@@ -11,7 +11,7 @@ All of those displays support the methods of the :class:`Display` class.
     A TFT display.
 
 .. module:: ili9341
-.. class:: ILI9241(spi, dc, cs, rst=None, width=240, height=320)
+.. class:: ILI9341(spi, dc, cs, rst=None, width=240, height=320)
 
     A TFT display.
 
