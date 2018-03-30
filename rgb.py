@@ -104,7 +104,8 @@ class Display:
             data = pixel * 512
             for count in range(chunks):
                 self._write(None, data)
-        self._write(None, pixel * rest)
+        if rest:
+            self._write(None, pixel * rest)
 
     def fill(self, color=0):
         """Fill whole screen."""
